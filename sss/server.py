@@ -12,5 +12,15 @@ def index(title):
     return render_template('base.html', title=title)
 
 
+@app.route('/training', defaults={'prof': 'да'})
+@app.route('/training/<prof>')
+def training(prof):
+    if 'инженер' in prof or 'строитель' in prof:
+        return render_template('picture.html', type='Инженерные тренажеры',
+                               src=f'{url_for("static", filename="img/milleniumfalconit.png")}')
+    return render_template('picture.html', type='Научные симуляторы',
+                           src=f'{url_for("static", filename="img/milleniumfalconns.png")}')
+
+
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')
